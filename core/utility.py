@@ -30,13 +30,13 @@ class ForEachState:
             if filename not in self._data:
                 self._data[filename] = False
         with open(self._filepath, "w", encoding="utf8") as f:
-            txt = json.dumps(self._data, indent=2)
+            txt = json.dumps(self._data, indent=2, sort_keys=True)
             f.write(txt)
 
     def mark_done(self, filename):
         self._data[filename] = True
         with open(self._filepath, "w", encoding="utf8") as f:
-            txt = json.dumps(self._data, indent=2)
+            txt = json.dumps(self._data, indent=2, sort_keys=True)
             f.write(txt)
 
     def pop(self):
