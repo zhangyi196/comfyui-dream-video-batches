@@ -1,6 +1,12 @@
 import hashlib
 import json
 import os
+import re
+
+
+def natsort_key(path):
+    basename = os.path.basename(path)
+    return [int(c) if c.isdigit() else c.lower() for c in re.split(r'(\d+)', basename)]
 
 
 def hashed_as_strings(*items, **kwargs):
@@ -23,24 +29,26 @@ class ForEachState:
         except:
             self._data = dict()
 
+    def _write(self):
+        sorted_data = {k: self._data[k] for k in sorted(self._data.keys(), key=natsort_key)}
+        with open(self._filepath, "w", encoding="utf8") as f:
+            txt = json.dumps(sorted_data, indent=2)
+            f.write(txt)
+
     def add_files_to_process(self, files):
         all_files = set(self._data.keys())
         all_files.update(files)
-        for filename in all_files:
+        for filename in sorted(all_files, key=natsort_key):
             if filename not in self._data:
                 self._data[filename] = False
-        with open(self._filepath, "w", encoding="utf8") as f:
-            txt = json.dumps(self._data, indent=2, sort_keys=True)
-            f.write(txt)
+        self._write()
 
     def mark_done(self, filename):
         self._data[filename] = True
-        with open(self._filepath, "w", encoding="utf8") as f:
-            txt = json.dumps(self._data, indent=2, sort_keys=True)
-            f.write(txt)
+        self._write()
 
     def pop(self):
-        for filename in sorted(self._data.keys()):
+        for filename in sorted(self._data.keys(), key=natsort_key):
             if not self._data.get(filename, False):
                 print("pop {}".format(filename))
                 return os.path.join(self._dir, filename)

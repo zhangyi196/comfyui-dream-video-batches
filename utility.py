@@ -114,7 +114,7 @@ class DVB_ForEachFilename:
         search_path = os.path.normpath(os.path.abspath(directory))
         state = ForEachState(statefile)
 
-        files = sorted(filter(lambda f: not f.endswith(foreach_filename), glob.glob(os.path.join(search_path, pattern), recursive=True)))
+        files = sorted(filter(lambda f: not f.endswith(foreach_filename), glob.glob(os.path.join(search_path, pattern), recursive=True)), key=natsort_key)
         state.add_files_to_process(files)
 
         next_path = state.pop()
