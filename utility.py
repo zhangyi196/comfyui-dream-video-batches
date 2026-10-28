@@ -174,6 +174,32 @@ class DVB_ForEachCheckpoint:
         return tuple()
 
 
+class DVB_ForEachCheckpointTxt:
+    NODE_NAME = "For Each Done Txt"
+    ICON = "🗘"
+    OUTPUT_NODE = True
+    CATEGORY = NodeCategories.UTILS
+    RETURN_TYPES = tuple()
+    RETURN_NAMES = tuple()
+    FUNCTION = "exec"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "txt": ("STRING", {"forceInput": True}),
+                "foreach": ("FOREACH",),
+            }
+        }
+
+    def exec(self, txt, foreach):
+        state = ForEachState(foreach)
+        next_file = state.pop()
+        state.mark_done(next_file)
+        return tuple()
+
+
+
 class DVB_StringTokenizer:
     NODE_NAME = "String Tokenizer"
     ICON = "🪙"

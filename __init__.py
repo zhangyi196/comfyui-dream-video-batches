@@ -41,6 +41,7 @@ _NODE_CLASSES = [
     DVB_InbetweenFrames,
     DVB_ForEachFilename,
     DVB_ForEachCheckpoint,
+    DVB_ForEachCheckpointTxt,
     DVB_LoadImageFromPath,
     DVB_Reverse,
     DVB_FrameSetRepeat,

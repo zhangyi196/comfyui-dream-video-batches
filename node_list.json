@@ -6,6 +6,7 @@
   "Fade From Black [DVB]": "Adds fade in at beginning of frame set",
   "Fade To Black [DVB]": "Adds fade out at end of frame set",
   "Float Input [DVB]": "User input node for float value",
+  "For Each Done Txt [DVB]": "Text file iteration finalizer for use with 'For Each Filename'",
   "For Each Done [DVB]": "File iteration (finalizer for use with 'For Each Filename')",
   "For Each Filename [DVB]": "File iteration",
   "Frame Set Append [DVB]": "Appends a frame set to another",
